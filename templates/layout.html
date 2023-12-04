@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>SIMVULM</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link href="assets/css/styles.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/customs.css?<?=filemtime('assets/css/customs.css');?>">
+        <link href="assets/css/swiper-bundle.min.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <div class=" bg-white" id="sidebar-wrapper">
+                <div class="sidebar-heading border">
+                    <img src="assets/images/rkslogo.png" alt="RKS LOGO" width="125px">
+                </div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" id="action-list" href="index.php?route=dashboard">Dashboard</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" id="action-list" href="index.php?route=findings&action=list">Findings</a>
+                    <!-- <a class="list-group-item list-group-item-action list-group-item-light p-3" href="index.php?route=programs">Programs</a> -->
+                    {% if session.user_role == 'admin'%}
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" id="action-list" href="index.php?route=users&action=list">Users</a>
+                    {% endif %}
+                    {% if session.crsf_token %}
+                    <input type="hidden" class="list-group-item list-group-item-action list-group-item-light p-3" hidden value="{{ session.crsf_token }}" />
+                    <!-- <input style="display: none;" class="list-group-item list-group-item-action list-group-item-light p-3">{{ session.crsf_token }}</input> -->
+                    {% endif %}
+                    <div class="dropdown">
+                        <button class="nav-link dropdown-toggle list-group-item list-group-item-action list-group-item-light p-3" id="action-list" type="button" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</button>
+                        <div class="dropdown-content ">
+                            <a class="list-group-item list-group-item-action list-group-item-light p-3" id="action-list" name="profile"  href="index.php?route=profile" >Profile</a>
+                            <a class="list-group-item list-group-item-action list-group-item-light p-3" id="action-list" name="logout"  href="index.php?route=logout" >Logout</a>
+                        </div>
+                    </div>
+                    <a class="about_us list-group-item list-group-item-action list-group-item-light p-3" id="action-list" name=""  href="index.php?route=about_us">About Us</a>
+
+                </div>
+            </div>
+            <div id="page-content-wrapper">
+                <!-- Page content-->
+                <div class="container my-5 px-5">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="assets/js/scripts.js"></script>
+        <script src="assets/js/customs.js"></script>
+        <script src="assets/js/swiper.js"></script>
+        <script src="assets/js/swipers.js"></script>
+        <script src="https://kit.fontawesome.com/a849a4f756.js" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    </body>
+</html>

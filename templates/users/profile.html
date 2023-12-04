@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="profile col">
+    <div class="p-5 ">
+        <form action="index.php?route=users&action=update-pp" method="POST" id="update-pp" enctype="multipart/form-data">
+            <div class="col profile_pict">
+                <input type="hidden" name="id" value="{{user_info.user_id}}">
+                <img class="pict" src="pp/{{user_info.profile_picture}}">
+            </div> 
+            <div class="col input-profil_pict">
+                <label for="input_profil_pict"> Change Profile</label>
+                <input type="file" id="input_profil_pict" name="input_profil_pict" accept=".jpeg, .jpg, .png" hidden required>
+            </div> 
+            <input type="text" id="csrf_token" name="csrf_token" value="{{token}}" hidden>
+        </form>
+        <form action="index.php?route=users&action=update" method="POST" id="update-form">
+            <input type="hidden" name="id" value="{{user_info.user_id}}">
+            <input type="hidden" name="location" id="location" value="profile">
+            <div class="col nama pt-5 pb-3">
+                <span class="col-1">Nama : </span>
+                <input type="text" id="name" name="name" class="col-10 mx-5" value="{{ user_info.name }}" readonly required></input>
+                <input type="text" id="old_name" class="col-10 mx-5" value="{{ user_info.name }}" hidden></input>
+            </div>
+            <div class="col role py-1">
+                <span class="col-1">Status : </span>
+                <select id="role" name="role" class="col-10 mx-5" required {% if user_info.role != 'admin' %} disabled {% endif %}>
+                    <option value="user" {% if user_info.role == 'student' %} selected {% endif %}>Student</option>
+                    <option value="admin" {% if user_info.role == 'admin' %} selected {% endif %}>Admin</option>
+                </select>
+                <input {% if user_info.role != 'admin' %} id="role" name="role" value="{{user_info.role}}" {% endif %} hidden></input>
+                <select id="old_role" name="old_role" class="form-control" hidden>
+                    <option value="user" {% if user_info.role == 'student' %} selected {% endif %}>Student</option>
+                    <option value="admin" {% if user_info.role == 'admin' %} selected {% endif %}>Admin</option>
+                </select>
+            </div>
+            <div class="col email py-3">
+                <span class="col-1">E-mail : </span>
+                <input type="text" id="email" name="email" class="col-10 mx-5" value="{{ user_info.email }}" readonly required></input>
+                <input type="text" id="old_email" class="col-10 mx-5" value="{{ user_info.email }}" hidden></input>
+            </div>
+            <div class="col phone_number py-2">
+                <span class="col-1">Phone : </span>
+                <input type="number" id="phone_number" name="phone_number" class="col-10 mx-5" value="{{ user_info.phone }}" readonly required placeholder="62"></input>
+                <input type="number" id="old_phone_number" name="old_phone_number" class="col-10 mx-5" value="{{ user_info.phone }}" hidden></input>
+            </div>
+            <div class="col button pt-4" style="background: none;">
+                <button id="edit-btn" type="button" style="background-color: rgb(255, 255, 255); width: 10%; border-radius: 20px;" onclick="edit_profile_profile_page()">Edit</button>
+                <button id="save-btn" type="button" style="background-color: rgb(255, 255, 255); width: 10%; border-radius: 20px;" value="Send" onclick="save_profile_profile_page()" hidden>Save</button>
+            </div>
+            <input type="text" id="csrf_token" name="csrf_token" value="{{token}}" hidden>
+        </form>
+    </div>
+</div>
+{% endblock %}

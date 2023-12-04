@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-6 my-3 alluser">
+        <div class="col-6 label-total-user">
+            <p class="total-user">{{allUser}}</p>
+            <label class="label-for-user" for="total-user">Users</label>
+        </div>
+        <div class="col-6 justify-content-center">
+            <img class="user-icon" src="assets/images/user-ico.png">
+        </div>
+
+    </div>
+    <div class="col-6 my-3 allfinding">
+        <div class="col-6 label-total-finding">
+            <p class="total-finding">{{allFinding}}</p>
+            <label class="label-for-finding" for="total-finding">Findings</label>
+        </div>
+        <div class="col-6">
+            <img class="finding-icon" src="assets/images/finding-icon.png" >
+        </div>
+    </div>
+</div>
+<div class="row my-5">
+    <div class="col-7 table-responsive">
+        <h1>Latest Findings</h1>
+        <table class="my-3 current-finding-table table table-hover finding-list">
+            <thead> 
+                <tr>
+                    <th>Submitted By</th>
+                    <th>Asset name</th>
+                    <th>Date Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for finding in findings %}
+                <tr>
+                    <td>{{finding.name}}</td>
+                    <td>{{finding.asset_name}}</td>
+                    <td>{{finding.insert_date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-5 finding-diagram" >
+        <input type="text" id="approved_findings" value="{{ approved_findings }}" hidden>
+        <input type="text" id="rejected_findings" value="{{ rejected_findings }}" hidden>
+        <input type="text" id="submitted_findings" value="{{ submitted_findings }}" hidden>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="assets/js/charts.js"></script>
+        <div class="justify-content-center">
+            <p class="col-8 finding-status-label">Finding Status</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

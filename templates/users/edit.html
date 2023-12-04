@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h1>Edit User</h1>
+<form action="index.php?route=users&action=update" method="POST" id="update-form">
+    <input type="text" name="id" value="{{ user.id }}">
+    <input type="hidden" name="location" id="location" value="update">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" class="form-control" value="{{ user.name }}" required>
+        <input type="text" id="old_name" class="col-10 mx-5" value="{{ user.name }}" hidden ></input>
+    </div>
+    <div class="form-group py-3">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="form-control" value="{{ user.email }}" required>
+        <input type="text" id="old_email" class="col-10 mx-5" value="{{ user.email }}" hidden></input>
+    </div>
+    <div class="form-group py-3">
+        <label for="password">password:</label>
+        <input type="password" id="password" name="password" class="form-control" value="{{ user.password }}" required>
+        <input type="text" id="old_password" class="col-10 mx-5" value="{{ user.password }}" hidden></input>
+    </div>
+    <div class="form-group py-3">
+        <label for="phone_number">Phone Number:</label>
+        <input type="number" id="phone_number" name="phone_number" class="form-control" value="{{ user.phone_number }}" required>
+        <input type="number" id="old_phone_number" name="old_phone_number" class="col-10 mx-5" value="{{ user.phone_number }}" hidden></input>
+    </div>
+    <div class="form-group py-3">
+        <label for="role">Role:</label>
+        <select id="role" name="role" class="form-control" required>
+            <option value="user" {% if user.role == 'student' %} selected {% endif %}>Student</option>
+            <option value="admin" {% if user.role == 'admin' %} selected {% endif %}>Admin</option>
+        </select>
+        <select id="old_role" name="old_role" class="form-control" hidden>
+            <option value="user" {% if user.role == 'student' %} selected {% endif %}>Student</option>
+            <option value="admin" {% if user.role == 'admin' %} selected {% endif %}>Admin</option>
+        </select>
+    </div>
+    <input type="text" name="csrf_token" id="csrf_token" value="{{csrf_token}}" hidden>
+    <button type="button" class="btn btn-primary" value="Send" onclick="save_profile_edit_page()">Simpan</button>
+    
+</form>
+{% endblock %}

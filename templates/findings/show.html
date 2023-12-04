@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container my-3 px-5">
+    <form action="index.php?route=findings&action=edit" method="POST" enctype="multipart/form-data">
+        <h1>Finding Detail</h1>
+        <input type="hidden" id="id" name="id" value="{{ finding.id }}">
+        <div class="form-group py-3">
+            <label for="asset_name">Nama asset:</label>
+            <select id="asset_name" name="asset_name" class="form-control" disabled>
+                <option value="polibatam.ac.id" {% if finding.asset_name == "polibatam.ac.id" %} selected {% endif %} >Polibatam</option>
+                <option value="sid.polibatam.ac.id" {% if finding.asset_name == "sid.polibatam.ac.id" %} selected {% endif %} >SID</option>
+                <option value="sim.polibatam.ac.id" {% if finding.asset_name == "sim.polibatam.ac.id" %} selected {% endif %} >SILAM</option>
+                <option value="helpdesk.polibatam.ac.id" {% if finding.asset_name == "helpdesk.polibatam.ac.id" %} selected {% endif %} >Helpdesk</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="Title" name="title" class="form-control" value="{{finding.title}}" readonly>
+        </div>
+        
+        <div class="form-group py-3">
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" class="form-control" rows="4" readonly>{{finding.description}}</textarea>
+        </div>
+        
+        <div class="form-group py-3">
+            <label for="severity">Severity:</label>
+            <select id="severity" name="severity" class="form-control" disabled >
+                <option value="Critical" {% if finding.severity == "Critical" %} selected {% endif %} >Critical</option>
+                <option value="High" {% if finding.severity == "High" %} selected {% endif %} >High</option>
+                <option value="Medium" {% if finding.severity == "Medium" %} selected {% endif %} >Medium</option>
+                <option value="Low" {% if finding.severity == "Low" %} selected {% endif %} >Low</option>
+            </select>
+        </div>
+
+        <div class="form-group py-3">
+            <label>Proof of Concept:</label>
+            <button type="button"><a href="poc/{{finding.proofofconcept}}">{{finding.proofofconcept}}</a></button>
+        </div>  
+    
+        <div class="form-group py-3" id="new_proofOfConcept" hidden>
+            <label for="proofOfConcept">New Proof of Concept:</label>
+            <input type="file" id="proofOfConcept" class="form-control-file" accept=".pdf" name="proofOfConcept">
+        </div>    
+
+        <div class="form-group py-3">
+            <label for="poc_video_url">POC Video URL: (opsional)</label>
+            {% if finding.poc_video_url %}
+                <a href="{{finding.poc_video_url}}" id="poc_video_url" class="form-control"> {{finding.poc_video_url}}</a>
+            {% else %}
+                <input id="empty_poc" name="empty_poc" class="form-control" value="{{finding.poc_video_url}}" readonly>
+            {% endif %}
+            <input id="input_poc_video_url" name="input_poc_video_url" class="form-control" hidden>
+        </div>
+        {% if finding.status == "submitted" %}
+        <button class="btn btn-primary" onclick="edit_finding()" type="button" id="edit-btn">Edit</button>
+        <button class="btn btn-primary" id="save-btn" type="submit"  value="Send" hidden>Save</button>
+        <button class="btn btn-primary" id="cancel-btn" onclick="cancel_edit_finding()" type="button" hidden>Cancel</button>
+        {% endif %}
+        <input type="text" name="csrf_token" id="csrf_token" value="{{csrf_token}}" hidden>
+    </form>
+</div>
+{% endblock %}
