@@ -2,8 +2,8 @@
 class Database
 {
     private $host = 'localhost';
-    private $username = 'postgres';
-    private $password = 'a';
+    private $username = 'laporbug';
+    private $password = 'laporbug';
     private $database = 'laporbug';
     private $connection;
 
